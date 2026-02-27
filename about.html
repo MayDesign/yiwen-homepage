@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Yiwen Ding</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for LaTeX math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* ===== CSS Variables ===== */
+    :root {
+      --ink: #1a1a2e;
+      --ink-light: #3d3d56;
+      --ink-muted: #6b6b82;
+      --cream: #faf8f5;
+      --cream-deep: #f0ece4;
+      --rule: #d4cfc6;
+      --accent: #8b7355;
+      --accent-hover: #6d5a43;
+      --font-display: 'Cormorant Garamond', 'Georgia', serif;
+      --font-body: 'EB Garamond', 'Libre Baskerville', 'Georgia', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 17px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* Faint grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== Navigation ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0.85rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 245, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-name:hover { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Active nav link */
+    .nav-links a.active {
+      color: var(--ink);
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* ===== Page Content ===== */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 7rem 2rem 6rem;
+    }
+
+    /* Page title */
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 3rem;
+    }
+
+    /* ===== About Blocks ===== */
+    .about-block {
+      margin-bottom: 3.5rem;
+    }
+
+    .about-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-block-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+      letter-spacing: 0.01em;
+    }
+
+    /* Research statement */
+    .research-statement {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--ink-light);
+      max-width: 680px;
+      font-style: italic;
+    }
+
+    /* ===== Timeline ===== */
+    .timeline {
+      list-style: none;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 2rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid rgba(212, 207, 198, 0.4);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-date {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding-top: 0.15rem;
+    }
+
+    .timeline-role {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-place {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-detail {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--rule);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    footer p {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== Scroll Animations ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== KaTeX ===== */
+    .katex {
+      font-size: 1em !important;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      html { font-size: 15px; }
+
+      .page-title { font-size: 2.4rem; }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
+
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.75rem; }
+
+      .page { padding: 6rem 1.5rem 4rem; }
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 5.5rem 1.2rem 3rem; }
+      .page-title { font-size: 2rem; }
+      nav { padding: 0.8rem 1.2rem; }
+    }
+
+    /* ===== Mobile nav toggle ===== */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 600px) {
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(250, 248, 245, 0.97);
+        backdrop-filter: blur(12px);
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--rule);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav>
+    <a class="nav-name" href="index.html">Y. Ding</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html#teaching">Teaching</a></li>
+      <li><a href="index.html#publications">Publications & Writings</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Page Content ===== -->
+  <div class="page">
+
+    <h1 class="page-title fade-in">About</h1>
+    <p class="page-subtitle fade-in">Yiwen Ding · Associate Professor · BICMR, Peking University</p>
+
+    <!-- Research Interest -->
+    <div class="about-block fade-in">
+      <h2 class="about-block-title">Research Interest</h2>
+      <p class="research-statement">
+        Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
+      </p>
+    </div>
+
+    <!-- Academic Positions -->
+    <div class="about-block fade-in">
+      <h2 class="about-block-title">Academic Positions</h2>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date">2017 – present</span>
+          <div class="timeline-content">
+            <p class="timeline-role">Associate Professor</p>
+            <p class="timeline-detail">promoted from Assistant Professor</p>
+            <p class="timeline-place">Beijing International Center for Mathematical Research (BICMR), Peking University</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">2015 – 2017</span>
+          <div class="timeline-content">
+            <p class="timeline-role">Postdoctoral Researcher</p>
+            <p class="timeline-place">Imperial College London, United Kingdom</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Education -->
+    <div class="about-block fade-in">
+      <h2 class="about-block-title">Education</h2>
+      <ul class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date">2015</span>
+          <div class="timeline-content">
+            <p class="timeline-role">Ph.D. in Mathematics</p>
+            <p class="timeline-place">Université Paris-Sud XI (Orsay), France &ensp;<span class="timeline-detail">now Université Paris-Saclay</span></p>
+            <p class="timeline-detail">Advisor: Christophe Breuil</p>
+            <p class="timeline-detail"><em>Dissertation: "Formes modulaires \(p\)-adiques sur les courbes de Shimura unitaires et compatibilité local-global"</em></p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <span class="timeline-date">≤ 2012</span>
+          <div class="timeline-content">
+            <p class="timeline-role">B.S. in Mathematics</p>
+            <p class="timeline-place">University of Science and Technology of China (USTC), Hefei</p>
+            <p class="timeline-detail">Early research with Prof. Yi Ouyang on \(p\)-adic Galois representations</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>Yiwen Ding · Peking University · BICMR</p>
+  </footer>
+
+  <!-- ===== KaTeX auto-render ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+          ],
+          throwOnError: false
+        });
+      }
+    });
+  </script>
+
+  <!-- ===== Scroll Animation ===== -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
