@@ -343,19 +343,9 @@
 
 <body>
 
-  <!-- ===== Navigation ===== -->
-  <nav>
-    <a class="nav-name" href="index.html">Y. Ding</a>
-    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="index.html#research">Research</a></li>
-      <li><a href="index.html#teaching">Teaching</a></li>
-      <li><a href="index.html#publications">Publications & Writings</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-    </ul>
-  </nav>
+  <!-- ===== Navigation (injected by nav.js) ===== -->
+  <nav></nav>
+  <script src="nav.js"></script>
 
   <!-- ===== Page Content ===== -->
   <div class="page">
@@ -448,12 +438,6 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('open');
-      });
-    });
   </script>
 
 </body>

@@ -88,6 +88,7 @@
       font-weight: 500;
       letter-spacing: 0.03em;
       color: var(--ink);
+      text-decoration: none;
     }
 
     .nav-links {
@@ -152,7 +153,7 @@
       width: 100%;
       aspect-ratio: 3/4;
       object-fit: cover;
-      object-position: top;
+      object-position: 70% top;
       display: block;
       filter: grayscale(15%) contrast(1.02);
       transition: filter 0.5s ease;
@@ -649,19 +650,9 @@
 
 <body>
 
-  <!-- ===== Navigation ===== -->
-  <nav>
-    <div class="nav-name">Y. Ding</div>
-    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="#research">Research</a></li>
-      <li><a href="#teaching">Teaching</a></li>
-      <li><a href="#publications">Publications & Writings</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
+  <!-- ===== Navigation (injected by nav.js) ===== -->
+  <nav></nav>
+  <script src="nav.js"></script>
 
   <!-- ===== Hero ===== -->
   <section class="hero">
@@ -923,13 +914,6 @@
 
     // Observe all fade-in elements
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Close mobile nav when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('open');
-      });
-    });
   </script>
 
 </body>
