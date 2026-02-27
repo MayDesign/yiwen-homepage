@@ -38,9 +38,29 @@
     });
   });
 
-  // Scroll to top on page load/refresh
+  // Always scroll to top on page load/refresh
+  // Disable browser's automatic scroll restoration
   if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
   }
-  window.scrollTo(0, 0);
+
+  // Detect if this is a page refresh or back/forward (not a fresh navigation)
+  var navType = 'navigate';
+  if (performance.getEntriesByType) {
+    var navEntry = performance.getEntriesByType('navigation')[0];
+    if (navEntry) navType = navEntry.type;
+  }
+  var shouldResetScroll = (navType === 'reload' || navType === 'back_forward');
+
+  // On refresh/back: clear hash and scroll to top so page always starts from the top
+  if (shouldResetScroll && window.location.hash) {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+
+  if (shouldResetScroll) {
+    window.scrollTo(0, 0);
+    window.addEventListener('load', function() {
+      window.scrollTo(0, 0);
+    });
+  }
 })();
