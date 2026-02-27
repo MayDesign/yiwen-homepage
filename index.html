@@ -408,6 +408,102 @@
       margin-bottom: 0.2rem;
     }
 
+    /* ===== Research Interest label in hero ===== */
+    .research-interest-label {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== Subsection header (e.g. "Other Writings" inside Publications) ===== */
+    .subsection-header {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(212, 207, 198, 0.5);
+    }
+
+    /* Reset counter for the "Other Writings" sub-list */
+    .pub-list-other {
+      counter-reset: pub-counter;
+    }
+
+    /* ===== About Section ===== */
+    .about-block {
+      margin-bottom: 3rem;
+    }
+
+    .about-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-block-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ===== Timeline (for education & positions) ===== */
+    .timeline {
+      list-style: none;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 2rem;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid rgba(212, 207, 198, 0.4);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-date {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding-top: 0.15rem;
+    }
+
+    .timeline-content {
+      /* right column with role, place, details */
+    }
+
+    .timeline-role {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-place {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-detail {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
     /* ===== Footer ===== */
     footer {
       position: relative;
@@ -472,6 +568,11 @@
 
       .teaching-list li {
         flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
         gap: 0.3rem;
       }
     }
@@ -544,10 +645,9 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links">
-      <li><a href="#research">Research</a></li>
       <li><a href="#teaching">Teaching</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#writings">Writings</a></li>
+      <li><a href="#publications">Publications & Writings</a></li>
+      <li><a href="#about">About</a></li>
     </ul>
   </nav>
 
@@ -564,9 +664,13 @@
           Beijing International Center for Mathematical Research<br>
           Peking University
         </p>
-        <div class="divider"><span class="divider-symbol">∿</span></div>
         <p class="contact-line"><span>Office</span> &ensp; 81-102</p>
         <p class="contact-line"><span>Email</span> &ensp; yiwen.ding@bicmr.pku.edu.cn</p>
+        <div class="divider"><span class="divider-symbol">∿</span></div>
+        <p class="research-interest-label">Research Interest</p>
+        <p class="research-statement">
+          Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
+        </p>
       </div>
     </div>
   </section>
@@ -574,21 +678,10 @@
   <!-- ===== Main Content ===== -->
   <main>
 
-    <!-- Research Interest -->
-    <section id="research" class="fade-in">
-      <div class="section-header">
-        <span class="section-number">I</span>
-        <h2>Research</h2>
-      </div>
-      <p class="research-statement">
-        Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
-      </p>
-    </section>
-
     <!-- Teaching -->
     <section id="teaching" class="fade-in">
       <div class="section-header">
-        <span class="section-number">II</span>
+        <span class="section-number">I</span>
         <h2>Teaching</h2>
       </div>
       <ul class="teaching-list">
@@ -606,8 +699,8 @@
     <!-- Publications -->
     <section id="publications">
       <div class="section-header fade-in">
-        <span class="section-number">III</span>
-        <h2>Publications &amp; Preprints</h2>
+        <span class="section-number">II</span>
+        <h2>Publications &amp; Writings</h2>
       </div>
       <ol class="pub-list">
 
@@ -753,23 +846,18 @@
         </li>
 
       </ol>
-    </section>
 
-    <!-- Other Writings -->
-    <section id="writings" class="fade-in">
-      <div class="section-header">
-        <span class="section-number">IV</span>
-        <h2>Other Writings</h2>
-      </div>
-      <ol class="pub-list">
-        <li class="pub-item">
+      <!-- Other Writings sub-section -->
+      <h3 class="subsection-header fade-in">Other Writings</h3>
+      <ol class="pub-list pub-list-other">
+        <li class="pub-item fade-in">
           <div class="pub-content">
             <p class="pub-title"><em>\(p\)-adic Hodge parameters in the crystabelline representations of \(\mathrm{GL}_3(\mathbb{Q}_p)\)</em></p>
             <p class="pub-meta">30 pages, 2024</p>
             <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/crysGL3.pdf" target="_blank">PDF</a>
           </div>
         </li>
-        <li class="pub-item">
+        <li class="pub-item fade-in">
           <div class="pub-content">
             <p class="pub-title"><em>On some partially de Rham Galois representations</em></p>
             <p class="pub-meta">24 pages, 2014</p>
@@ -777,6 +865,68 @@
           </div>
         </li>
       </ol>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="fade-in">
+      <div class="section-header">
+        <span class="section-number">III</span>
+        <h2>About</h2>
+      </div>
+
+      <!-- Research Interest -->
+      <div class="about-block">
+        <h3 class="about-block-title">Research Interest</h3>
+        <p class="research-statement">
+          Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
+        </p>
+      </div>
+
+      <!-- Academic Positions -->
+      <div class="about-block">
+        <h3 class="about-block-title">Academic Positions</h3>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-date">2017 – present</span>
+            <div class="timeline-content">
+              <p class="timeline-role">Associate Professor</p>
+              <p class="timeline-detail">promoted from Assistant Professor</p>
+              <p class="timeline-place">Beijing International Center for Mathematical Research (BICMR), Peking University</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">2015 – 2017</span>
+            <div class="timeline-content">
+              <p class="timeline-role">Postdoctoral Researcher</p>
+              <p class="timeline-place">Imperial College London, United Kingdom</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Education -->
+      <div class="about-block">
+        <h3 class="about-block-title">Education</h3>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-date">2015</span>
+            <div class="timeline-content">
+              <p class="timeline-role">Ph.D. in Mathematics</p>
+              <p class="timeline-place">Université Paris-Sud XI (Orsay), France &ensp;<span class="timeline-detail">now Université Paris-Saclay</span></p>
+              <p class="timeline-detail">Advisor: Christophe Breuil</p>
+              <p class="timeline-detail"><em>Dissertation: "Formes modulaires \(p\)-adiques sur les courbes de Shimura unitaires et compatibilité local-global"</em></p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-date">≤ 2012</span>
+            <div class="timeline-content">
+              <p class="timeline-role">B.S. in Mathematics</p>
+              <p class="timeline-place">University of Science and Technology of China (USTC), Hefei</p>
+              <p class="timeline-detail">Early research with Prof. Yi Ouyang on \(p\)-adic Galois representations</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
   </main>
