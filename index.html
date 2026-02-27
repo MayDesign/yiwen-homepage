@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yiwen Ding — Mathematician</title>
+
+  <!-- Fonts: Cormorant Garamond for headings, EB Garamond for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for LaTeX math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* ===== CSS Variables ===== */
+    :root {
+      --ink: #1a1a2e;           /* deep navy-black for text */
+      --ink-light: #3d3d56;     /* lighter ink for secondary text */
+      --ink-muted: #6b6b82;     /* muted text */
+      --cream: #faf8f5;         /* warm off-white background */
+      --cream-deep: #f0ece4;    /* slightly deeper cream for accents */
+      --rule: #d4cfc6;          /* subtle divider color */
+      --accent: #8b7355;        /* warm bronze accent */
+      --accent-hover: #6d5a43;
+      --paper: #ffffff;
+      --font-display: 'Cormorant Garamond', 'Georgia', serif;
+      --font-body: 'EB Garamond', 'Libre Baskerville', 'Georgia', serif;
+    }
+
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 17px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ===== Subtle background pattern — faint grid like graph paper ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      /* faint grid pattern reminiscent of mathematical paper */
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== Navigation ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 245, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      transition: all 0.3s ease;
+    }
+
+    /* The small logo/name in the nav */
+    .nav-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 6rem;
+      z-index: 1;
+    }
+
+    .hero-inner {
+      max-width: 960px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    /* Photo with elegant frame */
+    .hero-photo {
+      position: relative;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: grayscale(15%) contrast(1.02);
+      transition: filter 0.5s ease;
+    }
+
+    .hero-photo:hover img {
+      filter: grayscale(0%) contrast(1);
+    }
+
+    /* Decorative border offset behind the photo */
+    .hero-photo::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: -12px;
+      bottom: -12px;
+      border: 1px solid var(--accent);
+      z-index: -1;
+      transition: all 0.4s ease;
+    }
+
+    .hero-photo:hover::before {
+      top: 8px;
+      left: 8px;
+      right: -8px;
+      bottom: -8px;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-display);
+      font-size: 3.8rem;
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+    }
+
+    .hero-text .subtitle {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero-text .affiliation {
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text .contact-line {
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-text .contact-line span {
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    /* Elegant decorative element — a thin line with a mathematical symbol */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 1.8rem 0;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .divider-symbol {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+    }
+
+    /* ===== Main Content Container ===== */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ===== Section Styling ===== */
+    section {
+      margin-bottom: 5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.8rem;
+    }
+
+    .section-number {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    /* ===== Research Interest ===== */
+    .research-statement {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--ink-light);
+      max-width: 680px;
+      font-style: italic;
+    }
+
+    /* ===== Teaching ===== */
+    .teaching-list {
+      list-style: none;
+    }
+
+    .teaching-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(212, 207, 198, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .teaching-list li:last-child {
+      border-bottom: none;
+    }
+
+    .course-name {
+      font-size: 1.05rem;
+      color: var(--ink);
+    }
+
+    .course-note a {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .course-note a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* ===== Publications ===== */
+    .pub-list {
+      list-style: none;
+      counter-reset: pub-counter;
+    }
+
+    .pub-item {
+      /* Each publication entry */
+      position: relative;
+      padding: 1.5rem 0 1.5rem 0;
+      border-bottom: 1px solid rgba(212, 207, 198, 0.35);
+      transition: background 0.3s ease;
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-item::before {
+      counter-increment: pub-counter;
+      content: counter(pub-counter, decimal-leading-zero);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      position: absolute;
+      left: 0;
+      top: 1.6rem;
+    }
+
+    .pub-content {
+      padding-left: 3rem;
+    }
+
+    .pub-title {
+      font-size: 1.02rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 0.35rem;
+    }
+
+    .pub-title em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .pub-meta {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    .pub-meta .journal {
+      font-style: italic;
+    }
+
+    .pub-link {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .pub-link:hover {
+      border-bottom-color: var(--accent);
+      color: var(--accent-hover);
+    }
+
+    .pub-link::before {
+      content: '→ ';
+    }
+
+    /* Coauthors */
+    .coauthors {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--rule);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    footer p {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== Scroll Animations ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* stagger delay for publication items */
+    .pub-item.fade-in:nth-child(1) { transition-delay: 0s; }
+    .pub-item.fade-in:nth-child(2) { transition-delay: 0.05s; }
+    .pub-item.fade-in:nth-child(3) { transition-delay: 0.1s; }
+    .pub-item.fade-in:nth-child(4) { transition-delay: 0.15s; }
+    .pub-item.fade-in:nth-child(5) { transition-delay: 0.2s; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      html { font-size: 15px; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+      }
+
+      .hero-photo {
+        max-width: 220px;
+        margin: 0 auto;
+      }
+
+      .hero-text h1 { font-size: 2.8rem; }
+
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.8rem; }
+
+      main { padding: 0 1.5rem 4rem; }
+
+      .pub-item::before { display: none; }
+      .pub-content { padding-left: 0; }
+
+      .teaching-list li {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 6rem 1.2rem 3rem; }
+      .hero-text h1 { font-size: 2.2rem; }
+      .section-header h2 { font-size: 1.6rem; }
+      nav { padding: 0.8rem 1.2rem; }
+    }
+
+    /* ===== KaTeX inline math styling ===== */
+    .katex {
+      font-size: 1em !important; /* match surrounding text size */
+    }
+
+    /* ===== Mobile nav toggle ===== */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 600px) {
+      .nav-toggle { display: block; }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(250, 248, 245, 0.97);
+        backdrop-filter: blur(12px);
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--rule);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav>
+    <div class="nav-name">Y. Ding</div>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#writings">Writings</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-photo fade-in">
+        <img src="photo.png" alt="Yiwen Ding">
+      </div>
+      <div class="hero-text fade-in">
+        <h1>Yiwen Ding</h1>
+        <p class="subtitle">Associate Professor</p>
+        <p class="affiliation">
+          Beijing International Center for Mathematical Research<br>
+          Peking University
+        </p>
+        <div class="divider"><span class="divider-symbol">∿</span></div>
+        <p class="contact-line"><span>Office</span> &ensp; 81-102</p>
+        <p class="contact-line"><span>Email</span> &ensp; yiwen.ding@bicmr.pku.edu.cn</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Main Content ===== -->
+  <main>
+
+    <!-- Research Interest -->
+    <section id="research" class="fade-in">
+      <div class="section-header">
+        <span class="section-number">I</span>
+        <h2>Research</h2>
+      </div>
+      <p class="research-statement">
+        Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
+      </p>
+    </section>
+
+    <!-- Teaching -->
+    <section id="teaching" class="fade-in">
+      <div class="section-header">
+        <span class="section-number">II</span>
+        <h2>Teaching</h2>
+      </div>
+      <ul class="teaching-list">
+        <li>
+          <span class="course-name">Number Theory I</span>
+          <span class="course-note"><a href="http://bicmr.pku.edu.cn/~dingyiwen/nt1.pdf" target="_blank">Lecture Notes ↗</a></span>
+        </li>
+        <li>
+          <span class="course-name">Number Theory II</span>
+          <span class="course-note"><a href="http://bicmr.pku.edu.cn/~dingyiwen/nt2.pdf" target="_blank">Lecture Notes ↗</a></span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <div class="section-header fade-in">
+        <span class="section-number">III</span>
+        <h2>Publications &amp; Preprints</h2>
+      </div>
+      <ol class="pub-list">
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="coauthors">with Christophe Breuil · appendix by Zhixiang Wu</p>
+            <p class="pub-title"><em>Hodge filtration and crystalline representations of \(\mathrm{GL}_n\)</em></p>
+            <p class="pub-meta">Preprint, 135 pages, 2025</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/filtration.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>\(p\)-adic Hodge parameters in the crystabelline representations of \(\mathrm{GL}_n\)</em></p>
+            <p class="pub-meta"><span class="journal">Publications mathématiques de l'IHÉS</span>, Vol. 142, 2025, pp. 1–74</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/crysGLn.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="coauthors">appendix by Y. Ding, Y. Hu &amp; H. Wang</p>
+            <p class="pub-title"><em>Towards the wall-crossing of locally \(\mathbb{Q}_p\)-analytic representations of \(\mathrm{GL}_n(K)\)</em></p>
+            <p class="pub-meta">Preprint, 82 pages, 2024 · arXiv:2404.06315</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/wallcross.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>Change of weights for locally analytic representations of \(\mathrm{GL}_2(\mathbb{Q}_p)\)</em></p>
+            <p class="pub-meta">Preprint, 19 pages, 2023 · arXiv:2307.04332</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/weight.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="coauthors">with Christophe Breuil</p>
+            <p class="pub-title"><em>Bernstein eigenvarieties</em></p>
+            <p class="pub-meta"><span class="journal">Peking Mathematical Journal</span>, Vol. 7, 2024, pp. 471–642</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/BE.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>Locally analytic \(\mathrm{Ext}^1\) for \(\mathrm{GL}_2(\mathbb{Q}_p)\) in de Rham non trianguline case</em></p>
+            <p class="pub-meta"><span class="journal">Representation Theory</span>, Vol. 26, 2022, pp. 122–133</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/Ext1ntr.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>\(\mathrm{GL}_2(\mathbb{Q}_p)\)-ordinary families and automorphy lifting</em></p>
+            <p class="pub-meta">To appear in <span class="journal">Manuscripta Mathematica</span>, 51 pages</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/PordAL.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="coauthors">with Christophe Breuil</p>
+            <p class="pub-title"><em>Sur un problème de compatibilité local-global localement analytique</em></p>
+            <p class="pub-meta"><span class="journal">Memoirs of the American Mathematical Society</span>, Vol. 290, No. 1442, 166 pages</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/foncteurlocanal.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>A note on critical \(p\)-adic \(L\)-functions</em></p>
+            <p class="pub-meta"><span class="journal">Acta Mathematica Sinica, English Series</span>, Vol. 37, 2021, pp. 121–141</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/CpaL.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>Simple \(\mathscr{L}\)-invariants for \(\mathrm{GL}_n\)</em></p>
+            <p class="pub-meta"><span class="journal">Transactions of the American Mathematical Society</span>, Vol. 372, No. 11, 2019, pp. 7993–8042</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/lgln.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="coauthors">with Christophe Breuil</p>
+            <p class="pub-title"><em>Higher \(\mathscr{L}\)-invariants for \(\mathrm{GL}_3(\mathbb{Q}_p)\) and local-global compatibility</em></p>
+            <p class="pub-meta"><span class="journal">Cambridge Journal of Mathematics</span>, Vol. 8, No. 4, 2020, pp. 775–951</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/compaGL3.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>Companion points and locally analytic socle for \(\mathrm{GL}_2(L)\)</em></p>
+            <p class="pub-meta"><span class="journal">Israel Journal of Mathematics</span>, Vol. 231, Issue 1, 2019, pp. 47–122</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/socGL2.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>Some results on the locally analytic socle for \(\mathrm{GL}_n(\mathbb{Q}_p)\)</em></p>
+            <p class="pub-meta"><span class="journal">International Mathematics Research Notices</span>, Vol. 2019, Issue 19, pp. 5989–6035</p>
+            <a class="pub-link" href="https://academic.oup.com/imrn/article/2019/19/5989/4782487" target="_blank">Link</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>\(\mathscr{L}\)-invariants, partially de Rham families, and local-global compatibility</em></p>
+            <p class="pub-meta"><span class="journal">Annales de l'Institut Fourier</span>, 67, no. 4, 2017, pp. 1457–1519</p>
+            <a class="pub-link" href="https://aif.centre-mersenne.org/article/AIF_2017__67_4_1457_0.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>\(\mathscr{L}\)-invariants and local-global compatibility for \(\mathrm{GL}_2/F\)</em></p>
+            <p class="pub-meta"><span class="journal">Forum of Mathematics, Sigma</span>, Vol. 4, e13, 2016, 49 pages</p>
+            <a class="pub-link" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/4C35C47CDFDC7CF30678C8F6E83E7327/S2050509416000098a.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="pub-title"><em>Formes modulaires \(p\)-adiques sur les courbes de Shimura unitaires et compatibilité local-global</em></p>
+            <p class="pub-meta"><span class="journal">Mémoires de la Société Mathématique de France</span>, 155, 2017, viii+245 pages</p>
+          </div>
+        </li>
+
+        <li class="pub-item fade-in">
+          <div class="pub-content">
+            <p class="coauthors">with Yi Ouyang</p>
+            <p class="pub-title"><em>A simple proof of Dieudonné–Manin classification theorem</em></p>
+            <p class="pub-meta"><span class="journal">Acta Mathematica Sinica, English Series</span>, Vol. 28, Issue 8, 2012, pp. 1553–1558</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/dm.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- Other Writings -->
+    <section id="writings" class="fade-in">
+      <div class="section-header">
+        <span class="section-number">IV</span>
+        <h2>Other Writings</h2>
+      </div>
+      <ol class="pub-list">
+        <li class="pub-item">
+          <div class="pub-content">
+            <p class="pub-title"><em>\(p\)-adic Hodge parameters in the crystabelline representations of \(\mathrm{GL}_3(\mathbb{Q}_p)\)</em></p>
+            <p class="pub-meta">30 pages, 2024</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/crysGL3.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+        <li class="pub-item">
+          <div class="pub-content">
+            <p class="pub-title"><em>On some partially de Rham Galois representations</em></p>
+            <p class="pub-meta">24 pages, 2014</p>
+            <a class="pub-link" href="http://bicmr.pku.edu.cn/~dingyiwen/pdeR.pdf" target="_blank">PDF</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>Yiwen Ding · Peking University · BICMR</p>
+  </footer>
+
+  <!-- ===== KaTeX auto-render: turns \(...\) into rendered math ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "\\(", right: "\\)", display: false},  /* inline math */
+            {left: "\\[", right: "\\]", display: true}    /* display math */
+          ],
+          throwOnError: false
+        });
+      }
+    });
+  </script>
+
+  <!-- ===== Scroll Animation Script ===== -->
+  <script>
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Close mobile nav when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
