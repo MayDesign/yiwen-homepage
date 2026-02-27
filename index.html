@@ -253,6 +253,7 @@
     /* ===== Section Styling ===== */
     section {
       margin-bottom: 5rem;
+      scroll-margin-top: 5rem; /* offset for fixed nav when clicking anchor links */
     }
 
     .section-header {
@@ -645,6 +646,7 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
       <li><a href="#teaching">Teaching</a></li>
       <li><a href="#publications">Publications & Writings</a></li>
       <li><a href="about.html">About</a></li>
@@ -666,11 +668,6 @@
         </p>
         <p class="contact-line"><span>Office</span> &ensp; 81-102</p>
         <p class="contact-line"><span>Email</span> &ensp; yiwen.ding@bicmr.pku.edu.cn</p>
-        <div class="divider"><span class="divider-symbol">∿</span></div>
-        <p class="research-interest-label">Research Interest</p>
-        <p class="research-statement">
-          Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
-        </p>
       </div>
     </div>
   </section>
@@ -678,10 +675,21 @@
   <!-- ===== Main Content ===== -->
   <main>
 
+    <!-- Research Interest -->
+    <section id="research" class="fade-in">
+      <div class="section-header">
+        <span class="section-number">I</span>
+        <h2>Research Interest</h2>
+      </div>
+      <p class="research-statement">
+        Number theory and representation theory, especially the \(p\)-adic Langlands programme and its arithmetic applications.
+      </p>
+    </section>
+
     <!-- Teaching -->
     <section id="teaching" class="fade-in">
       <div class="section-header">
-        <span class="section-number">I</span>
+        <span class="section-number">II</span>
         <h2>Teaching</h2>
       </div>
       <ul class="teaching-list">
@@ -699,7 +707,7 @@
     <!-- Publications -->
     <section id="publications">
       <div class="section-header fade-in">
-        <span class="section-number">II</span>
+        <span class="section-number">III</span>
         <h2>Publications &amp; Writings</h2>
       </div>
       <ol class="pub-list">
